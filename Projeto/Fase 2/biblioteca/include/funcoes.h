@@ -1,0 +1,58 @@
+/**
+ * @file funcoes.h
+ * @brief Declarações das funções para manipulação de antenas, tipos de antenas e algoritmos de grafos.
+ * @author David Costa (a24609@alunos.ipca.pt)
+ *  
+ * Este ficheiro contém as declarações das funções usadas para criar, inserir, interligar antenas e tipos,
+ * bem como funções para buscas em grafos (DFS, BFS) e verificações relacionadas à interferência e efeitos nefastos.
+ */
+
+#ifndef FUNCOES_H
+#define FUNCOES_H
+
+#include "struct.h"
+#include <stdbool.h>
+
+/// @name Criação e inserção de antenas
+///@{
+Antena* CriarAntena(char frequencia, int x, int y);
+Antena* InserirAntena(Antena* lista, Antena* novaAntena);
+///@}
+
+/// @name Adjacências
+///@{
+Adjacente* CriarAdjacente(int x, int y);
+bool InserirAdjacente(Adjacente** lista, Adjacente* novo);
+bool AdicionarAdjacenteAntena(Antena* antena, int x, int y);
+///@}
+
+/// @name Interligação de antenas
+///@{
+Antena* InterligarTodasAntenasMesmoTipo(Antena* lista);
+bool InterligarAntenasTipo(TipoAntena* listaTipos);
+///@}
+
+/// @name Manipulação de tipos de antenas
+///@{
+TipoAntena* CriarTipoAntena(char tipo);
+TipoAntena* InserirTipoAntena(TipoAntena* lista, TipoAntena* novo);
+TipoAntena* ProcurarTipo(TipoAntena* lista, char tipo);
+TipoAntena* AdicionarAntenaTipo(TipoAntena* listaTipos, char tipo, Antena* novaAntena);
+///@}
+
+/// @name Algoritmos de grafos
+///@{
+ResultadoDFS* DFS(Antena* inicio, TipoAntena* listaTipos, int maxLin, int maxCol);
+ResultadoDFS* BFS(Antena* inicio, TipoAntena* listaTipos, int maxLin, int maxCol);
+bool ExisteCaminhoEntreAntenas(Antena* origem, Antena* destino);
+bool CaminhoDFS(Antena* atual, Antena* destino, bool* visitado, bool* caminhoEncontrado);
+///@}
+
+/// @name Verificações
+///@{
+bool AntenaExiste(Antena* lista, int x, int y);
+bool VerificarInterferencia(Antena* novaAntena, Antena* lista);
+bool VerificarEfeitosNefastos(Antena* novaAntena, Antena* lista);
+///@}
+
+#endif // FUNCOES_H
